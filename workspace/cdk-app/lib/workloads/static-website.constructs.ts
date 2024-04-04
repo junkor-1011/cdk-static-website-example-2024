@@ -5,6 +5,7 @@ import { chdir, cwd } from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 import {
+  AssetHashType,
   Aws,
   type BundlingOptions,
   DockerImage,
@@ -68,6 +69,7 @@ export class StaticWebsiteSystem extends Construct {
         s3_deployment.Source.asset(
           path.join(__dirname, '../../../..'), // workspace parent dir
           {
+            assetHashType: AssetHashType.OUTPUT,
             bundling: {
               local: {
                 tryBundle: (
