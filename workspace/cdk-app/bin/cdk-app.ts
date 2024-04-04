@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
+import { App } from 'aws-cdk-lib';
 import 'source-map-support/register';
 import { CdkAppStack } from '../lib/cdk-app-stack';
 import { CloudFrontWafStack } from '../lib/wafv2-cloudfront-stack';
 
-const app = new cdk.App();
+const app = new App();
 new CdkAppStack(app, 'CdkAppStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
@@ -18,8 +18,10 @@ new CdkAppStack(app, 'CdkAppStack', {
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
 
-new CloudFrontWafStack(new cdk.App(), 'CloudFrontWafStack', {
+new CloudFrontWafStack(app, 'CloudFrontWafStack', {
   env: {
     region: 'us-east-1',
   },
 });
+
+app.synth();
