@@ -17,8 +17,8 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "aws-cdk": "2.145.0",
-    "esbuild": "^0.21.4",
-    "tsx": "^4.13.3",
+    "esbuild": "^0.21.5",
+    "tsx": "^4.15.2",
     "typescript": "~5.4.5",
     "vite": "^5.2.13",
     "vitest": "^1.6.0"
