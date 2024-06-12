@@ -1,6 +1,14 @@
 #!/usr/bin/env node
-import { App } from 'aws-cdk-lib';
+import process from 'node:process';
+
+import { App, Aspects } from 'aws-cdk-lib';
 import 'source-map-support/register';
+import {
+  AwsSolutionsChecks,
+  HIPAASecurityChecks,
+  NIST80053R5Checks,
+  PCIDSS321Checks,
+} from 'cdk-nag';
 import { CdkAppStack } from '../lib/cdk-app-stack';
 import { CloudFrontWafStack } from '../lib/wafv2-cloudfront-stack';
 
@@ -23,5 +31,14 @@ new CloudFrontWafStack(app, 'CloudFrontWafStack', {
     region: 'us-east-1',
   },
 });
+
+const checkAspects = process.env.CHECK_ASPECTS === 'true';
+
+if (checkAspects) {
+  Aspects.of(app).add(new AwsSolutionsChecks());
+  Aspects.of(app).add(new NIST80053R5Checks());
+  Aspects.of(app).add(new PCIDSS321Checks());
+  Aspects.of(app).add(new HIPAASecurityChecks());
+}
 
 app.synth();
